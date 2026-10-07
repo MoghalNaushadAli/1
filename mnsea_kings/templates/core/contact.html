@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <h2 class="mk-section-title">Get in Touch</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="mk-form-card text-center h-100">
+        <div style="font-size:2rem;">📞</div>
+        <h6 class="fw-bold mt-2">Call / WhatsApp</h6>
+        <p class="text-muted mb-1">Call: {{ site_config.contact_phone }}</p>
+        <p class="text-muted">WhatsApp: {{ site_config.contact_whatsapp }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="mk-form-card text-center h-100">
+        <div style="font-size:2rem;">✉️</div>
+        <h6 class="fw-bold mt-2">Email</h6>
+        <p class="text-muted">{{ site_config.contact_email }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="mk-form-card text-center h-100">
+        <div style="font-size:2rem;">🚚</div>
+        <h6 class="fw-bold mt-2">Delivery Coverage</h6>
+        <p class="text-muted">Pan-India delivery available</p>
+      </div>
+    </div>
+  </div>
+  <div class="mk-form-card mt-4">
+    <h5 class="fw-bold mb-3">Have a question or bulk order enquiry?</h5>
+    <p class="text-muted">Reach out to us directly via phone, WhatsApp or email above — our team typically responds within a few hours. For order-specific queries, please have your Order Number handy.</p>
+  </div>
+</div>
+{% endblock %}

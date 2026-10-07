@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}My Addresses{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <h3 class="mk-section-title">Delivery Addresses</h3>
+  <div class="row">
+    <div class="col-lg-7">
+      {% for address in addresses %}
+      <div class="mk-cart-row">
+        <strong>{{ address.full_name }}</strong> {% if address.is_default %}<span class="badge bg-success">Default</span>{% endif %}<br>
+        <span class="text-muted">{{ address.phone }}</span><br>
+        <span class="text-muted">{{ address.full_address }}</span>
+      </div>
+      {% empty %}
+      <p class="text-muted">No saved addresses yet. Add your first delivery address →</p>
+      {% endfor %}
+      {% if addresses %}
+      <a href="{% url 'orders:checkout' %}" class="btn btn-mk-primary mt-2">Continue to Checkout</a>
+      {% endif %}
+    </div>
+    <div class="col-lg-5">
+      <div class="mk-form-card">
+        <h5 class="fw-bold mb-3">Add New Address</h5>
+        <form method="post">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="mb-3">
+            <label class="form-label small fw-semibold">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}<div class="text-danger small">{{ field.errors }}</div>{% endif %}
+          </div>
+          {% endfor %}
+          <button type="submit" class="btn btn-mk-primary w-100">Save Address</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

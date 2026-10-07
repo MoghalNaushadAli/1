@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <div class="row align-items-center g-5">
+    <div class="col-lg-5 text-center">
+      <img src="{% static 'images/dolphin-logo.png' %}" style="max-width:280px;" alt="MNSEA KINGS dolphin logo">
+    </div>
+    <div class="col-lg-7">
+      <h2 class="mk-section-title">About MNSEA KINGS CORPORATION</h2>
+      <p>{{ site_config.tagline }}</p>
+      <p>We deliver the freshest fish, prawns, chicken, mutton and other seafood straight from trusted coasts and farms to your kitchen — cleaned, cut to your preference, and packed in a hygienic cold-chain for delivery across India.</p>
+      <p>Our mission is simple: bring restaurant-quality freshness home, at fair prices, with zero hassle.</p>
+      <ul class="list-unstyled mt-4">
+        <li class="mb-2">🐟 Sourced fresh daily from trusted coastal &amp; farm partners</li>
+        <li class="mb-2">❄️ Hygienically packed in a cold chain to preserve freshness</li>
+        <li class="mb-2">🚚 Delivered across India, right to your doorstep</li>
+        <li class="mb-2">💳 Flexible payment — Cash on Delivery or UPI</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

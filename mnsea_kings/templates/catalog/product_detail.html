@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb small">
+      <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'catalog:category_detail' product.category.slug %}">{{ product.category.name }}</a></li>
+      <li class="breadcrumb-item active">{{ product.name }}</li>
+    </ol>
+  </nav>
+
+  <div class="row g-4">
+    <div class="col-md-5">
+      <div class="mk-product-img" style="height:360px;border-radius:14px;">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <div class="mk-product-icon" aria-hidden="true"><span>{{ product.icon_emoji|default:product.category.icon_emoji }}</span><small>{{ product.category.name }}</small></div>
+        {% endif %}
+        {% if product.discount_percent %}<span class="mk-badge-discount">{{ product.discount_percent }}% OFF</span>{% endif %}
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="mk-product-cat">{{ product.category.name }}</div>
+      <h2 class="fw-bold">{{ product.name }}</h2>
+      {% if product.short_description %}<p class="text-muted">{{ product.short_description }}</p>{% endif %}
+      {% if product.cut_info %}<p><strong>Cut:</strong> {{ product.cut_info }}</p>{% endif %}
+      {% if product.origin %}<p><strong>Sourced from:</strong> {{ product.origin }}</p>{% endif %}
+
+      <div class="d-flex align-items-end gap-2 my-3">
+        <span class="fs-3 fw-bold" style="color:var(--navy);">₹{{ product.price }}</span>
+        {% if product.mrp and product.mrp > product.price %}<span class="mk-mrp fs-6">₹{{ product.mrp }}</span>{% endif %}
+        <span class="text-muted">/ {{ product.get_unit_display }}</span>
+      </div>
+
+      {% if product.is_available %}
+      <form method="post" action="{% url 'cart:cart_add' product.id %}" class="d-flex align-items-center gap-3">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <input type="number" name="qty" value="1" min="1" class="form-control mk-qty-input">
+        <button type="submit" class="btn btn-mk-primary btn-lg">Add to Cart</button>
+      </form>
+      {% else %}
+      <div class="alert alert-danger d-inline-block">Currently out of stock — please check back soon!</div>
+      {% endif %}
+
+      {% if product.description %}
+      <hr class="my-4">
+      <h6 class="fw-bold">Product Details</h6>
+      <p>{{ product.description|linebreaks }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+  {% if related %}
+  <div class="mt-5">
+    <h4 class="mk-section-title">You may also like</h4>
+    <div class="row g-3">
+      {% for product in related %}
+        {% include "catalog/_product_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmed{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <div class="mk-empty-state">
+    <div class="icon" style="color:#1e8e5a;">✅</div>
+    <h3 class="mt-3">Order Placed Successfully!</h3>
+    <p class="text-muted">Thank you for shopping with MNSEA KINGS CORPORATION. Your order <strong>#{{ order.order_number }}</strong> has been received.</p>
+    <p>We'll call you at <strong>{{ order.phone }}</strong> to confirm before dispatch.</p>
+    <div class="d-flex justify-content-center gap-2 mt-4">
+      <a href="{% url 'orders:order_detail' order.order_number %}" class="btn btn-mk-primary">View Order Details</a>
+      <a href="{% url 'catalog:product_list' %}" class="btn btn-mk-outline">Continue Shopping</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

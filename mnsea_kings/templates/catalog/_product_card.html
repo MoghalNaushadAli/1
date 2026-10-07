@@ -1,0 +1,39 @@
+{% load static %}
+<div class="col-6 col-md-4 col-lg-3">
+  <div class="mk-product-card">
+    <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+      <div class="mk-product-img">
+        {% if product.image %}
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% else %}
+          <div class="mk-product-icon" aria-hidden="true"><span>{{ product.icon_emoji|default:product.category.icon_emoji }}</span><small>{{ product.category.name }}</small></div>
+        {% endif %}
+        {% if product.discount_percent %}<span class="mk-badge-discount">{{ product.discount_percent }}% OFF</span>{% endif %}
+        {% if product.is_bestseller %}<span class="mk-badge-best">★ Bestseller</span>{% endif %}
+        {% if not product.is_available %}<div class="mk-out-of-stock">Out of Stock</div>{% endif %}
+      </div>
+    </a>
+    <div class="mk-product-body">
+      <div class="mk-product-cat">{{ product.category.name }}</div>
+      <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-reset">
+        <div class="mk-product-name">{{ product.name }}</div>
+      </a>
+      {% if product.cut_info %}<div class="mk-product-cut">{{ product.cut_info }}</div>{% endif %}
+      <div class="mk-price-row">
+        <div>
+          <span class="mk-price">₹{{ product.price }}</span>
+          {% if product.mrp and product.mrp > product.price %}<span class="mk-mrp">₹{{ product.mrp }}</span>{% endif %}
+          <div class="mk-unit">{{ product.get_unit_display }}</div>
+        </div>
+        {% if product.is_available %}
+        <form method="post" action="{% url 'cart:cart_add' product.id %}">
+          {% csrf_token %}
+          <input type="hidden" name="qty" value="1">
+          <input type="hidden" name="next" value="{{ request.path }}">
+          <button type="submit" class="btn btn-mk-primary btn-sm">Add</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

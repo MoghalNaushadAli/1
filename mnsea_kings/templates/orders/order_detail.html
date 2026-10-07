@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Order {{ order.order_number }}{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+    <h3 class="mk-section-title mb-2">Order #{{ order.order_number }}</h3>
+    <span class="mk-status-pill status-{{ order.status }}">{{ order.get_status_display }}</span>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="mk-form-card mb-4">
+        <h6 class="fw-bold mb-3">Items</h6>
+        <table class="table">
+          <thead><tr><th>Item</th><th>Unit Price</th><th>Qty</th><th class="text-end">Total</th></tr></thead>
+          <tbody>
+          {% for item in order.items.all %}
+            <tr>
+              <td>{{ item.product_name }}</td>
+              <td>₹{{ item.unit_price }} / {{ item.unit }}</td>
+              <td>{{ item.qty }}</td>
+              <td class="text-end">₹{{ item.line_total }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-between"><span>Subtotal</span><span>₹{{ order.subtotal }}</span></div>
+        <div class="d-flex justify-content-between"><span>Delivery Fee</span><span>{% if order.delivery_fee == 0 %}FREE{% else %}₹{{ order.delivery_fee }}{% endif %}</span></div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span>₹{{ order.total }}</span></div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="mk-summary-card">
+        <h6 class="fw-bold mb-2">Delivery Details</h6>
+        <p class="mb-1"><strong>{{ order.full_name }}</strong></p>
+        <p class="mb-1 text-muted">{{ order.address_line }}</p>
+        <p class="mb-1 text-muted">{{ order.city }}, {{ order.state }} - {{ order.pincode }}</p>
+        <p class="mb-1 text-muted">📞 {{ order.phone }}</p>
+        {% if order.delivery_slot %}<p class="mb-1 text-muted">🕒 {{ order.delivery_slot }}</p>{% endif %}
+        <hr>
+        <p class="mb-1"><strong>Payment:</strong> {{ order.get_payment_method_display }}</p>
+        {% if order.payment_method == "online" %}
+        <p class="mb-1">
+          <strong>Payment Status:</strong>
+          {% if order.payment_status == "paid" %}<span class="mk-status-pill status-delivered">Paid ✓</span>
+          {% elif order.payment_status == "failed" %}<span class="mk-status-pill status-cancelled">Failed</span>
+          {% else %}<span class="mk-status-pill status-placed">Pending</span>{% endif %}
+        </p>
+        {% endif %}
+        {% if order.notes %}<p class="mb-1 text-muted">Note: {{ order.notes }}</p>{% endif %}
+
+        {% if order.needs_payment %}
+        <a href="{% url 'payments:initiate_payment' order.order_number %}" class="btn btn-mk-primary w-100 mt-2">Pay Now — ₹{{ order.total }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

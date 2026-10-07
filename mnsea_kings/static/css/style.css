@@ -1,0 +1,351 @@
+/* ==========================================================================
+   MNSEA KINGS CORPORATION — brand stylesheet
+   Navy + Gold, seafood/meat delivery theme
+   ========================================================================== */
+
+:root{
+  --navy: #0a1f3d;
+  --navy-dark: #061426;
+  --navy-soft: #12335e;
+  --gold: #d9a940;
+  --gold-light: #f3d98b;
+  --cream: #fbf7ee;
+  --ink: #1c2530;
+  --muted: #6b7688;
+  --success: #1e8e5a;
+  --danger: #c8402c;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(10,31,61,0.10);
+  --shadow-lg: 0 16px 40px rgba(10,31,61,0.18);
+}
+
+*{ box-sizing: border-box; }
+
+body{
+  font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: var(--cream);
+}
+
+a{ text-decoration: none; }
+
+/* ---------- Top announcement banner ---------- */
+.top-banner{
+  background: var(--navy-dark);
+  color: var(--gold-light);
+  font-size: .85rem;
+  text-align: center;
+  padding: 6px 10px;
+  letter-spacing: .2px;
+}
+
+/* ---------- Navbar ---------- */
+.mk-navbar{
+  background: var(--navy);
+  box-shadow: var(--shadow);
+  padding: .55rem 0;
+}
+.mk-navbar .navbar-brand{
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: .3px;
+}
+.mk-navbar .navbar-brand img{
+  height: 46px; width: 46px; object-fit: contain;
+  border-radius: 50%;
+  background: var(--navy-dark);
+  border: 2px solid var(--gold);
+}
+.mk-navbar .nav-link{
+  color: rgba(255,255,255,.88) !important;
+  font-weight: 500;
+  padding: .5rem .9rem !important;
+}
+.mk-navbar .nav-link:hover,
+.mk-navbar .nav-link.active{
+  color: var(--gold-light) !important;
+}
+.mk-navbar .dropdown-menu{
+  border-radius: 10px;
+  border: none;
+  box-shadow: var(--shadow-lg);
+}
+.mk-search-form .form-control{
+  border-radius: 999px 0 0 999px;
+  border: none;
+  padding-left: 1.1rem;
+}
+.mk-search-form .btn{
+  border-radius: 0 999px 999px 0;
+  background: var(--gold);
+  border: none;
+  color: var(--navy-dark);
+  font-weight: 600;
+}
+.mk-cart-btn{
+  position: relative;
+  color: #fff;
+  font-size: 1.3rem;
+}
+.mk-cart-badge{
+  position: absolute;
+  top: -6px; right: -10px;
+  background: var(--gold);
+  color: var(--navy-dark);
+  font-size: .65rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 1px 6px;
+  line-height: 1.3;
+}
+
+/* ---------- Buttons ---------- */
+.btn-mk-primary{
+  background: linear-gradient(135deg, var(--gold), #c8962c);
+  border: none;
+  color: var(--navy-dark);
+  font-weight: 600;
+  border-radius: 999px;
+  padding: .55rem 1.4rem;
+  box-shadow: 0 6px 16px rgba(217,169,64,.35);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn-mk-primary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(217,169,64,.45);
+  color: var(--navy-dark);
+}
+.btn-mk-outline{
+  background: transparent;
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+  font-weight: 600;
+  border-radius: 999px;
+  padding: .5rem 1.3rem;
+}
+.btn-mk-outline:hover{ background: var(--navy); color:#fff; }
+
+/* ---------- Hero ---------- */
+.mk-hero{
+  background: radial-gradient(circle at 15% 20%, var(--navy-soft), var(--navy) 55%, var(--navy-dark) 100%);
+  color: #fff;
+  border-radius: 0 0 32px 32px;
+  padding: 3.2rem 0 3.6rem;
+  position: relative;
+  overflow: hidden;
+}
+.mk-hero::after{
+  content:"";
+  position:absolute; inset:0;
+  background: url('/static/images/dolphin-logo.png') no-repeat right -60px top -60px;
+  background-size: 380px;
+  opacity: .12;
+  pointer-events:none;
+}
+.mk-hero h1{
+  font-weight: 700;
+  font-size: 2.5rem;
+}
+.mk-hero .accent{ color: var(--gold-light); }
+.mk-hero p.lead{ color: rgba(255,255,255,.85); }
+.mk-badge-pill{
+  display:inline-flex; align-items:center; gap:.4rem;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  color: var(--gold-light);
+  padding: .35rem .9rem;
+  border-radius: 999px;
+  font-size: .82rem;
+  margin: .2rem .3rem .2rem 0;
+}
+
+/* ---------- Section titles ---------- */
+.mk-section-title{
+  font-weight: 700;
+  color: var(--navy);
+  position: relative;
+  padding-bottom: .5rem;
+  margin-bottom: 1.4rem;
+}
+.mk-section-title::after{
+  content:"";
+  position:absolute; left:0; bottom:0;
+  width: 54px; height: 4px;
+  background: var(--gold);
+  border-radius: 4px;
+}
+
+/* ---------- Category cards ---------- */
+.mk-cat-card{
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  text-align:center;
+  padding: 1.4rem 1rem;
+  color: var(--ink);
+  transition: transform .18s ease, box-shadow .18s ease;
+  height: 100%;
+  border: 1px solid rgba(10,31,61,.05);
+}
+.mk-cat-card:hover{
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+  color: var(--navy);
+}
+.mk-cat-card .emoji{ font-size: 2.4rem; }
+.mk-cat-card .name{ font-weight: 600; margin-top: .4rem; }
+
+/* ---------- Product cards ---------- */
+.mk-product-card{
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  border: 1px solid rgba(10,31,61,.05);
+  transition: box-shadow .18s ease, transform .18s ease;
+}
+.mk-product-card:hover{ box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.mk-product-img{
+  height: 190px;
+  background: #eef2f7;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.mk-product-img img{ width:100%; height:100%; object-fit:cover; }
+.mk-product-img .placeholder{ font-size:3rem; color:#c3cddd; }
+.mk-product-icon{
+  width:100%; height:100%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:.45rem;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 50% 36%, rgba(255,255,255,.96) 0 22%, transparent 23%),
+    linear-gradient(145deg, #f5f8fb, #dfe8f1);
+  position:relative;
+}
+.mk-product-icon::before{
+  content:""; position:absolute; width:94px; height:94px; border-radius:50%;
+  border:1px solid rgba(10,31,61,.10); background:rgba(255,255,255,.45);
+}
+.mk-product-icon span{ position:relative; z-index:1; font-size:3.5rem; line-height:1; filter:drop-shadow(0 4px 4px rgba(10,31,61,.12)); }
+.mk-product-icon small{ position:relative; z-index:1; color:var(--navy-soft); font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+.mk-badge-discount{
+  position:absolute; top:10px; left:10px;
+  background: var(--danger); color:#fff;
+  font-size:.72rem; font-weight:700;
+  padding: .18rem .55rem; border-radius: 6px;
+}
+.mk-badge-best{
+  position:absolute; top:10px; right:10px;
+  background: var(--gold); color: var(--navy-dark);
+  font-size:.7rem; font-weight:700;
+  padding: .18rem .55rem; border-radius: 6px;
+}
+.mk-product-body{ padding: .9rem 1rem 1.1rem; flex:1; display:flex; flex-direction:column; }
+.mk-product-cat{ font-size:.72rem; color: var(--muted); text-transform:uppercase; letter-spacing:.5px; }
+.mk-product-name{ font-weight:600; margin: .15rem 0 .25rem; color: var(--ink); }
+.mk-product-cut{ font-size:.78rem; color: var(--muted); margin-bottom:.5rem; }
+.mk-price-row{ margin-top:auto; display:flex; align-items:center; justify-content:space-between; }
+.mk-price{ font-weight:700; color: var(--navy); font-size:1.1rem; }
+.mk-mrp{ text-decoration: line-through; color: var(--muted); font-size:.82rem; margin-left:.4rem; }
+.mk-unit{ font-size:.75rem; color:var(--muted); font-weight:400; }
+.mk-out-of-stock{
+  position:absolute; inset:0;
+  background: rgba(255,255,255,.72);
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; color: var(--danger);
+  font-size:.85rem;
+}
+
+/* ---------- Trust strip ---------- */
+.mk-trust-strip{
+  background:#fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.4rem;
+  margin-top: -2.6rem;
+  position: relative;
+  z-index: 5;
+}
+.mk-trust-item{ text-align:center; }
+.mk-trust-item .icon{ font-size:1.7rem; color: var(--gold); }
+.mk-trust-item .label{ font-weight:600; font-size:.85rem; margin-top:.25rem; }
+
+/* ---------- Cart page ---------- */
+.mk-cart-row{
+  background:#fff; border-radius: 12px; box-shadow: var(--shadow);
+  padding: 1rem; margin-bottom: .8rem;
+}
+.mk-qty-input{
+  width: 62px; text-align:center; border-radius: 8px; border:1px solid #dfe4ec;
+}
+.mk-summary-card{
+  background:#fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 1.4rem;
+}
+
+/* ---------- Forms ---------- */
+.mk-form-card{
+  background:#fff; border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 2rem;
+}
+.form-control:focus, .form-select:focus{
+  border-color: var(--gold);
+  box-shadow: 0 0 0 .2rem rgba(217,169,64,.2);
+}
+/* Fallback styling for Django's built-in auth form widgets that don't carry Bootstrap classes */
+.mk-form-card input[type="text"],
+.mk-form-card input[type="password"],
+.mk-form-card input[type="email"],
+.mk-form-card input[type="tel"],
+.mk-form-card input[type="number"],
+.mk-form-card select,
+.mk-form-card textarea{
+  width:100%;
+  padding:.5rem .85rem;
+  border:1px solid #dfe4ec;
+  border-radius:8px;
+  font-family: inherit;
+}
+
+/* ---------- Status pills (order tracking) ---------- */
+.mk-status-pill{
+  display:inline-block; padding:.3rem .85rem; border-radius:999px;
+  font-size:.78rem; font-weight:600;
+}
+.status-placed{ background:#e8edf7; color: var(--navy); }
+.status-confirmed{ background:#e3f2ff; color:#0d6efd; }
+.status-packed{ background:#fff3cd; color:#8a6d1a; }
+.status-out_for_delivery{ background:#ffe4c4; color:#a15c00; }
+.status-delivered{ background:#e1f6ea; color: var(--success); }
+.status-cancelled{ background:#fbe1de; color: var(--danger); }
+
+/* ---------- Footer ---------- */
+.mk-footer{
+  background: var(--navy-dark);
+  color: rgba(255,255,255,.75);
+  padding: 3rem 0 1.4rem;
+  margin-top: 4rem;
+}
+.mk-footer h6{ color:#fff; font-weight:700; margin-bottom: 1rem; }
+.mk-footer a{ color: rgba(255,255,255,.7); }
+.mk-footer a:hover{ color: var(--gold-light); }
+.mk-footer .brand-logo{ height:44px; width:44px; border-radius:50%; border:2px solid var(--gold); }
+.mk-footer hr{ border-color: rgba(255,255,255,.12); }
+
+/* ---------- Misc ---------- */
+.mk-empty-state{ text-align:center; padding: 4rem 1rem; }
+.mk-empty-state .icon{ font-size:3.5rem; color:#c3cddd; }
+
+@media (max-width: 767px){
+  .mk-hero h1{ font-size: 1.85rem; }
+  .mk-trust-strip{ margin-top: 1.2rem; }
+}

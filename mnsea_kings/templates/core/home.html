@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<section class="mk-hero">
+  <div class="container position-relative">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <span class="mk-badge-pill">🐬 Pan-India Delivery</span>
+        <span class="mk-badge-pill">❄️ Cold-Chain Packed</span>
+        <span class="mk-badge-pill">✅ 100% Fresh Guarantee</span>
+        <h1 class="mt-3">Fresh <span class="accent">Seafood, Chicken &amp; Mutton</span><br>Delivered To Your Door</h1>
+        <p class="lead mt-3">{{ site_config.tagline }} Straight from trusted coasts &amp; farms — cleaned, cut, and delivered the same day.</p>
+        <div class="mt-4 d-flex flex-wrap gap-2">
+          <a href="{% url 'catalog:product_list' %}" class="btn btn-mk-primary btn-lg">Shop Now</a>
+          <a href="#categories" class="btn btn-outline-light btn-lg" style="border-radius:999px;">Browse Categories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="mk-trust-strip">
+    <div class="row text-center">
+      <div class="col-6 col-md-3 mk-trust-item">
+        <div class="icon">🚚</div>
+        <div class="label">Fast Delivery, All Over India</div>
+      </div>
+      <div class="col-6 col-md-3 mk-trust-item">
+        <div class="icon">🧊</div>
+        <div class="label">Hygienic Cold-Chain Packing</div>
+      </div>
+      <div class="col-6 col-md-3 mk-trust-item">
+        <div class="icon">💯</div>
+        <div class="label">Freshness Guaranteed</div>
+      </div>
+      <div class="col-6 col-md-3 mk-trust-item">
+        <div class="icon">💳</div>
+        <div class="label">COD &amp; UPI Payment</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5" id="categories">
+  <h3 class="mk-section-title">Shop by Category</h3>
+  <div class="row g-3">
+    {% for cat in categories %}
+    <div class="col-6 col-md-3">
+      <a href="{% url 'catalog:category_detail' cat.slug %}" class="mk-cat-card d-block">
+        <div class="emoji">{{ cat.icon_emoji }}</div>
+        <div class="name">{{ cat.name }}</div>
+      </a>
+    </div>
+    {% empty %}
+    <p class="text-muted">Categories will appear here once added from the admin panel.</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% if featured %}
+<div class="container mt-5">
+  <h3 class="mk-section-title">🎣 Today's Fresh Catch</h3>
+  <div class="row g-3">
+    {% for product in featured %}
+      {% include "catalog/_product_card.html" %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if bestsellers %}
+<div class="container mt-5">
+  <h3 class="mk-section-title">★ Bestsellers</h3>
+  <div class="row g-3">
+    {% for product in bestsellers %}
+      {% include "catalog/_product_card.html" %}
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="container mt-5 mb-5">
+  <div class="row g-3 text-center">
+    <div class="col-md-3 col-6">
+      <div class="p-4"><div style="font-size:2rem;">🐟</div><div class="fw-semibold mt-1">Fish</div></div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="p-4"><div style="font-size:2rem;">🦐</div><div class="fw-semibold mt-1">Prawns</div></div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="p-4"><div style="font-size:2rem;">🍗</div><div class="fw-semibold mt-1">Chicken</div></div>
+    </div>
+    <div class="col-md-3 col-6">
+      <div class="p-4"><div style="font-size:2rem;">🐐</div><div class="fw-semibold mt-1">Mutton</div></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

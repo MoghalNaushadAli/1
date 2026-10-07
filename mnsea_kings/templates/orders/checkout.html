@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+<div class="container my-5">
+  <h3 class="mk-section-title">Checkout</h3>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="mk-form-card mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold mb-0">Delivery Address</h5>
+          <a href="{% url 'orders:address_book' %}" class="btn btn-mk-outline btn-sm">+ Add New Address</a>
+        </div>
+
+        {% if addresses %}
+        <form method="post">
+          {% csrf_token %}
+          {% for address in addresses %}
+          <div class="form-check border rounded p-3 mb-2">
+            <input class="form-check-input" type="radio" name="address" value="{{ address.id }}" id="addr{{ address.id }}" {% if address.is_default %}checked{% endif %} required>
+            <label class="form-check-label" for="addr{{ address.id }}">
+              <strong>{{ address.full_name }}</strong> — {{ address.phone }}<br>
+              <span class="text-muted">{{ address.full_address }}</span>
+            </label>
+          </div>
+          {% endfor %}
+
+          <hr class="my-4">
+          <h6 class="fw-bold mb-2">Delivery Slot</h6>
+          {{ form.delivery_slot }}
+
+          <h6 class="fw-bold mt-4 mb-2">Payment Method</h6>
+          {% for radio in form.payment_method %}
+            {% if radio.data.value == "online" and not razorpay_enabled %}
+            <div class="form-check mb-2 opacity-50">
+              <input type="radio" disabled class="form-check-input">
+              <label class="form-check-label">UPI / Cards / Netbanking — <span class="text-muted">temporarily unavailable, please use Cash on Delivery</span></label>
+            </div>
+            {% else %}
+            <div class="form-check mb-2">
+              {{ radio.tag }}
+              <label class="form-check-label" for="{{ radio.id_for_label }}">
+                {{ radio.choice_label }}
+                {% if radio.data.value == "online" %}<div class="small text-muted">GPay, PhonePe, Paytm, any UPI app, debit/credit cards &amp; netbanking</div>{% endif %}
+              </label>
+            </div>
+            {% endif %}
+          {% endfor %}
+
+          <h6 class="fw-bold mt-4 mb-2">Delivery Notes (optional)</h6>
+          {{ form.notes }}
+
+          <button type="submit" class="btn btn-mk-primary btn-lg w-100 mt-4">Place Order — ₹{{ total }}</button>
+        </form>
+        {% else %}
+        <p class="text-muted">You haven't added a delivery address yet.</p>
+        <a href="{% url 'orders:address_book' %}" class="btn btn-mk-primary">Add Delivery Address</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="mk-summary-card">
+        <h5 class="fw-bold mb-3">Order Summary</h5>
+        {% for line in cart %}
+        <div class="d-flex justify-content-between small mb-2">
+          <span>{{ line.product.name }} × {{ line.qty }}</span>
+          <span>₹{{ line.line_total }}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><span>₹{{ subtotal }}</span></div>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Delivery Fee</span>
+          <span>{% if delivery_fee == 0 %}<span class="text-success">FREE</span>{% else %}₹{{ delivery_fee }}{% endif %}</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between fw-bold fs-5"><span>Total</span><span>₹{{ total }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

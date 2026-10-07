@@ -1,0 +1,11 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Import stock workbook</h1>
+<p>Upload an .xlsx file using the sample six-column format. Existing non-empty rows are skipped as duplicates.</p>
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+	<label>Year <input type="number" name="year" min="2000" max="2100" required></label>
+	<label>Month <input type="number" name="month" min="1" max="12" required></label>
+	<input type="file" name="workbook" accept=".xlsx" required>
+	<button type="submit">Import workbook</button>
+</form>
+{% endblock %}
